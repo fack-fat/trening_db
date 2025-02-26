@@ -1,4 +1,4 @@
-CREATE PROCEDURE trening_dm.AddExerciseInProgramm(
+CREATE PROCEDURE trening_dm.Add_Exercise_In_Programm(
     _programm_id int,
     _exercise_id int
 )

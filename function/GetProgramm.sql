@@ -5,7 +5,7 @@ CREATE OR REPLACE FUNCTION trening_dm.Get_Programm (
     RETURNS TABLE (
                     id int,
                     title varchar,
-                    description varchar,
+                    description text,
                     image varchar,
                     price float,
                     first_name varchar,
@@ -37,19 +37,21 @@ BEGIN
              )
 
 
-        SELECT p.id::int,
-               p.title::varchar,
-               p.description::varchar,
-               p.image::varchar,
+        SELECT DISTINCT ON (p.id)
+               p.id,
+               p.title,
+               p.description,
+               p.image,
                p.price,
-               u.first_name::varchar,
-               u.last_name::varchar,
-               (select trening_dm.Get_Exercise(p.id))::json AS exercise
+               u.first_name,
+               u.last_name,
+               (select trening_dm.Get_Exercise(p.id)) AS exercise
         FROM trening_dm.programm p
                 INNER JOIN programm_trening pt
                             ON p.id = pt.programm_id
                 INNER JOIN _user u
-                            ON u.id_trener = pt.trener_id;
+                            ON u.id_trener = pt.trener_id
+                WHERE p.deleted = FALSE;
 
 END
 $$;

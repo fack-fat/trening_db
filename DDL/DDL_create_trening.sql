@@ -32,9 +32,11 @@ CREATE TABLE IF NOT EXISTS trening_dm.Programm (
     Mdate TIMESTAMP,
     Paid BOOLEAN DEFAULT FALSE,
     Price FLOAT,
+    Deleted BOOLEAN DEFAULT false,
     User_id INT REFERENCES trening_dm.Profile(id),
     Trener_id INT REFERENCES trening_dm.TRENER_USER(Id)
 );
+
 
 CREATE TABLE IF NOT EXISTS trening_dm.Programm_fo_Trener(
     Programm_id INT REFERENCES trening_dm.Programm,
@@ -46,13 +48,16 @@ CREATE TABLE IF NOT EXISTS trening_dm.Programm_fo_Trener(
 
 CREATE INDEX ON trening_dm.Programm_fo_Trener(Programm_id, Trener_id);
 
+
 CREATE TABLE IF NOT EXISTS trening_dm.Subscriber (
     Programm_id INT REFERENCES trening_dm.Programm,
     User_id INT REFERENCES trening_dm.Profile,
     Cdate TIMESTAMP,
     Mdate TIMESTAMP,
+    Active BOOLEAN DEFAULT TRUE,
     PRIMARY KEY (User_id, Programm_id)
 );
+
 
 CREATE TABLE IF NOT EXISTS trening_dm.Exercise(
     Id serial PRIMARY KEY,
@@ -72,14 +77,19 @@ CREATE TABLE IF NOT EXISTS trening_dm.APPROACH (
     Id SERIAL PRIMARY KEY,
     Weigth FLOAT,
     Repeat INT,
-    Rest INT
+    Rest INT,
+    Exercise_id INT,
+    FOREIGN KEY (Exercise_id) REFERENCES trening_dm.Exercise
 );
+
 
 CREATE TABLE IF NOT EXISTS trening_dm.Exercise_of_Approach (
     approach_id INT REFERENCES trening_dm.APPROACH,
     exercise_id INT REFERENCES trening_dm.Exercise,
-    PRIMARY KEY (approach_id, exercise_id)
+    programm_id INT REFERENCES trening_dm.Programm,
+    PRIMARY KEY (approach_id, exercise_id, programm_id)
 );
+
 
 CREATE TABLE IF NOT EXISTS trening_dm.RAITING_Programm(
     Rating float,
