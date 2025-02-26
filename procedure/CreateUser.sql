@@ -38,7 +38,7 @@ BEGIN
         CALL trening_dm.createtrener(ids);
     EXCEPTION
         WHEN others THEN
-            RAISE EXCEPTION 'Error inserting profile data: %', SQLERRM;
+            RAISE EXCEPTION 'Error inserting profile Data: %', SQLERRM;
     END;
 
 END;

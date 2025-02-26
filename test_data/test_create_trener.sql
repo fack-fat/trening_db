@@ -15,22 +15,22 @@ DO $$
          select * from trening_dm.profile;
          select * from trening_dm.trener_user;
 
-        call trening_dm.CreateProgramm(
-                1, '65 Сисный кач 2235',
+        call trening_dm.Create_Programm(
+                1, 'test',
                 'dassdasasddas', '',
              0
              );
 
 
 
-        call trening_dm.CreateProgramm(
-                13, 'Сисный кач2',
+        call trening_dm.Create_Programm(
+                1, 'Сисный кач2',
                 'dassdasasddas', '',
                 0
              );
 
-        call trening_dm.CreateProgramm(
-                13, '4343 Сисный кач244',
+        call trening_dm.Create_Programm(
+                1, '4343 Сисный кач244',
                 'dassdasasddas', '',
              0
              );
@@ -65,20 +65,38 @@ DO $$
 
         call trening_dm.AddExerciseInProgramm(1,1);
 
+        select * from trening_dm.exercise_of_programm;
+
         call trening_dm.CreateExercise(
                 'Жим на горизонтальной'
              );
 
         call trening_dm.Add_Approach(
-                110,
-                3,
+                100,
+                1,
              '90',
-             1
+             1,
+             6
              );
 
-        select trening_dm.get_exercise(1);
+        select trening_dm.get_exercise(6);
 
         select * from trening_dm.approach;
+
+        select * from trening_dm.subscriber;
+
+        select * from trening_dm.profile;
+
+        select * from trening_dm.programm_fo_trener;
+
+        SELECT * FROM trening_dm.Add_Current_Trening_For_User(1, 1);
+
+        select * from trening_dm.Get_User_Programm(1);
+
+        select * from trening_dm.Get_User_Trenings(1);
+
+        SELECT * FROM trening_dm.delete_programm_user(_programm_id := 3, _user_id := 1);
+
     END;
 $$;
 

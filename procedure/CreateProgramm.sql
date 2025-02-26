@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE trening_dm.CreateProgramm(
+CREATE OR REPLACE PROCEDURE trening_dm.Create_Programm(
     in _user_id INT,
     in _title VARCHAR(50),
     in _description TEXT,
